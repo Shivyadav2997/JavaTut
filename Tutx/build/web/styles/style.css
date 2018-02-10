@@ -1,0 +1,120 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9 Feb, 2018, 3:29:41 PM
+    Author     : Student
+*/
+#sidebar{
+    margin-top: 3px;
+    width:200px;
+    height:auto;
+    background-color: black;
+    color:white;
+    padding:10px;
+    
+}
+
+#data{
+    width:100%;
+}
+#div1{
+    padding: 10px;
+    position:absolute;
+    left:40%;
+    background-color: black;
+    width: auto;
+    color:white;
+}
+
+#tab{
+   position:relative;
+    bottom:260px;
+    left:250px;
+    width:500px;
+    background-color: black;
+}
+
+.new{
+    border: 1px solid #e0e0d1;
+}
+
+#header{
+    background-color: #000;
+    color:#fff;
+    text-align: center;
+    padding:10px 0px;
+}
+
+body{
+    padding:10px;
+    margin:50px;
+    background-color: #e0e0d1;
+    
+}
+
+
+.button {
+    display: block;
+    height: 15px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btn { 
+    height: 35px;
+    background: #4E9CAF;
+    border-radius: 5px;
+    
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    width:100%;
+}
+
+
+
+.profile {
+    display: block;
+    position:relative;
+    bottom:5px;
+    background: #4E9CAF;
+    padding:5px 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    float:right;
+    text-decoration: none;
+}
+
+a:hover{
+    background: white;
+    color: #4E9CAF;
+    transition:1s;
+}
+
+.btn:hover{
+    background: white;
+    color: #4E9CAF;
+    transition:1s;
+}
+table { 
+    border-collapse: collapse; 
+    color: white;
+}
+
+td{
+    font-weight: bold;
+}
+
+
+
+

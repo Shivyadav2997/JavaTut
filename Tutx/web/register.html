@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+    </head>
+    <body>
+        <div id="div1">
+            <form action="RegisterUser" method="post">
+                <table cellspacing='10' cellpadding='10'>
+                    <tr>
+                        <th colspan="2" style="font-weight: bold;color:white">
+                            REGISTER
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Full Name:
+                        </td>
+                        <td>
+                            <input type="text" name="uname" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="email" name="umail" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="password" name="pssd" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Confirm Password:
+                        </td>
+                        <td>
+                            <input type="password" name="cpssd" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn" name="sub">Register</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>
