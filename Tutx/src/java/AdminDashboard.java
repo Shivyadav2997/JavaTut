@@ -9,9 +9,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +43,8 @@ public class AdminDashboard extends HttpServlet {
         ResultSet rs = null;
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            if(CheckCookie.checkstatus(request, response)==1)
+            {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/usermgnt?user=root");
             stmt = conn.createStatement();
@@ -50,9 +54,16 @@ public class AdminDashboard extends HttpServlet {
              out.println("</html>"
                     + "<head>"
                     + "<link rel='stylesheet' type='text/css' href='"+request.getContextPath()+"/styles/style.css'>"
+                    + "<script src='"+request.getContextPath()+"/js/js.js'></script>"
                     + "</head>"
                     + "<body >");
-                      out.println("<div id='header'>ADMIN DASHBOARD<a style='position:relative;right:5px;' class='profile' href='LogoutUser'>Logout</a><a style='position:relative;right:10px;' class='profile' href='EditProfile?id="+Aid+"&user=1&type=1'>Profile</a></div>");
+                      out.println("<div id='header'>ADMIN DASHBOARD<a style='position:relative;right:5px;' class='profile' href='LogoutUser'>Logout</a>"
+                              +" <div style='position:relative;right:10px;' class='profile'><button onclick='myFunction()' class='dropbtn'>Profile</button><div id='myDropdown' class='dropdown-content'>"
+                              + "<a href='EditProfile?id="+Aid+"&user=1&type=1&Aid="+Aid+"'>Edit Profile</a>" 
+                              + "<a href='UpdatePsd?id="+Aid+"&user=1&type=1&Aid="+Aid+"'>Change Password</a>" 
+                              + "</div>" 
+                              + "</div>"
+                              + "</div>");
                       out.println("<div style='margin-top:3px;'><div align='center' style='left:40%;background-color: black;'>");
                      out.println("<table  border=2 cellspacing='10' cellpadding='10'>");
             
@@ -109,16 +120,16 @@ public class AdminDashboard extends HttpServlet {
                            switch(Uid){
                                 case 0:
                                     out.println("<tr><td style='text-align:center;'>"+rs.getString("Name")+"</td><td colspan='2'><a class='button' "
-                                            + "href='Operate?op=1&id="+id+"'>Activate</a></tr>");
+                                            + "href='Operate?op=1&id="+id+"&Aid="+Aid+"'>Activate</a></tr>");
                                     break;
                                 case 1:
                                     out.println("<tr><td style='text-align:center;'>"+rs.getString("Name")+"</td><td><a class='button' "
-                                            + "href='EditProfile?id="+id+"&user=1&type=0'>Edit</a></td><td><a class='button' "
-                                                    + "href='Operate?op=0&id="+id+"'>Deactive</a></td></tr>");
+                                            + "href='EditProfile?id="+id+"&user=1&type=0&Aid="+Aid+"'>Edit</a></td><td><a class='button' "
+                                                    + "href='Operate?op=0&id="+id+"&Aid="+Aid+"'>Deactive</a></td></tr>");
                                     break;
                                 case 3:
                                     out.println("<tr><td style='text-align:center;'>"+rs.getString("Name")+"</td><td colspan='2'><a class='button' "
-                                            + "href='Operate?op=1&id="+id+"'>Accept</a></tr>");
+                                            + "href='Operate?op=1&id="+id+"&Aid="+Aid+"'>Accept</a></tr>");
                                     break;
                                 case 4:
                                     out.println("<tr><td colspan='3' style='text-align:center;'>"+rs.getString("Name")+"</td></tr>");
@@ -134,6 +145,13 @@ public class AdminDashboard extends HttpServlet {
                      out.println("</div>");
                      out.println("</body>"
                     +"</html>");
+                 
+                }
+                else{
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    out.println("<script>alert('Please Log in First');</script>");
+                    rd.include(request, response);
+                }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

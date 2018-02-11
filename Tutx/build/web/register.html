@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <script src="js/js.js"></script>
     </head>
     <body>
         <div id="div1">
@@ -25,7 +26,7 @@ and open the template in the editor.
                             Full Name:
                         </td>
                         <td>
-                            <input type="text" name="uname" required>
+                            <input type="text" name="uname" placeholder="First Middle Last" required>
                         </td>
                     </tr>
                     <tr>
@@ -33,7 +34,7 @@ and open the template in the editor.
                             Email:
                         </td>
                         <td>
-                            <input type="email" name="umail" required>
+                            <input type="email" name="umail" placeholder="Valid Email" required>
                         </td>
                     </tr>
                     <tr>
@@ -41,7 +42,7 @@ and open the template in the editor.
                             Password:
                         </td>
                         <td>
-                            <input type="password" name="pssd" required>
+                            <input type="password" name="pssd" placeholder="Atleast 8 characters" required>
                         </td>
                     </tr>
                     <tr>
@@ -49,12 +50,58 @@ and open the template in the editor.
                             Confirm Password:
                         </td>
                         <td>
-                            <input type="password" name="cpssd" required>
+                            <input type="password" name="cpssd" placeholder="Atleast 8 characters" required>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
+                            Gender:
+                        </td>
+                        <td>
+                            <input type="radio" name="gender" value="M" >M
+                            <input type="radio" name="gender" value="F" >F
+                            <input type="radio" name="gender" value="T" >T
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Date of Birth:
+                        </td>
+                        <td>
+                            <input type="text" name="dob" placeholder="YYYY/MM/DD" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Mobile:
+                        </td>
+                        <td>
+                            <input type="text" name="mobile" placeholder="only numbers" maxlength=10 required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            State:
+                        </td>
+                        <td>
+                            <input type="text" name="state" required>
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td>
+                            City:
+                        </td>
+                        <td>
+                            <input type="text" name="city" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <button class="btn" name="sub">Register</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn" name="sub" onclick="cancel()">Cancel</button>
                         </td>
                     </tr>
                 </table>

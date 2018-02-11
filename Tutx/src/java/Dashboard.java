@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +50,7 @@ public class Dashboard extends HttpServlet {
                     response.sendRedirect("index.html");
                 }
             }*/
+            if(CheckCookie.checkstatus(request, response)==1){
             int id = Integer.parseInt(request.getParameter("id"));
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/usermgnt?user=root");
@@ -56,13 +58,28 @@ public class Dashboard extends HttpServlet {
             out.println("</html>"
                     + "<head>"
                     + "<link rel='stylesheet' type='text/css' href='"+request.getContextPath()+"/styles/style.css'>"
+                    + "<script src='"+request.getContextPath()+"/js/js.js'></script>"
                     + "</head>"
                     + "<body>");
-            out.println("<div id='header'>USER DASHBOARD<a style='position:relative;right:5px;' class='profile' href='LogoutUser'>Logout</a><a style='position:relative;right:10px;' class='profile' href='EditProfile?id="+id+"&user=0&type=0'>Profile</a></div>");
-                      out.println("<div style='margin-top:3px;'><div align='center' style='left:40%;background-color: black;'>");
-                     out.println("<table  border=2 cellspacing='10' cellpadding='10'>");
+            out.println("<div id='header'>USER DASHBOARD<a style='position:relative;right:5px;' class='profile' href='LogoutUser'>Logout</a>"
+                    + " <div style='position:relative;right:10px;' class='profile'><button onclick='myFunction()'  class='dropbtn'>Profile</button><div id='myDropdown' class='dropdown-content'>"
+                              + "<a href='EditProfile?id="+id+"&user=0&type=0&Aid="+id+"'>Edit Profile</a>" 
+                              + "<a href='UpdatePsd?id="+id+"&user=0&type=0&Aid="+id+"'>Change Password</a>" 
+                              + "</div>" 
+                              + "</div></div>");
+                    out.println("<div style='margin-top:3px;'><div id='sidebar'><br><br><a class='button' href='#'>Dashboard</a>");
+                     out.println("<br><a class='button' href='#'>Book A Ticket</a>");       
+                     out.println("<br><a class='button' href='#'>Chechk PNR Status</a>");   
+                     out.println("<br><a class='button' href='#'>Trains Between Station</a>");   
+                     out.println("</div></div>");
             out.println("</body>"
                     + "</html>");
+            }
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    out.println("<script>alert('Please Log in First');</script>");
+                    rd.include(request, response);
+                }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

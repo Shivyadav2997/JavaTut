@@ -51,7 +51,7 @@ public class ValidateLogin extends HttpServlet {
             rs = stmt.executeQuery("Select * from user_details where Email='"+mail+"' and Password='"+upass+"'");
             if(rs.next())
             {
-                Cookie cookie = new Cookie("mail",rs.getString("Email"));
+                Cookie cookie = new Cookie("mail",rs.getString("Email"));  
                 response.addCookie(cookie);
                 int id = rs.getInt("Id");
                 if(rs.getInt("Type")==1)

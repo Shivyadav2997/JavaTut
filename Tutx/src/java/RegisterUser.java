@@ -37,9 +37,11 @@ public class RegisterUser extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = null;
         Statement stmt = null;
+        RequestDispatcher rd = null;
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            if(CheckCookie.checkstatus(request, response)==1){
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/usermgnt?user=root");
             stmt = conn.createStatement();
@@ -48,24 +50,40 @@ public class RegisterUser extends HttpServlet {
             String umail = request.getParameter("umail");
             String upass = request.getParameter("pssd");
             String cpass = request.getParameter("cpssd");
-            
-            if(upass.equals(cpass))
+            String ugender = request.getParameter("gender");
+            String udob = request.getParameter("dob");
+            String umobile = request.getParameter("mobile");
+            String ustate = request.getParameter("state");
+            String ucity = request.getParameter("city");
+           
+            if(!upass.equals(cpass) || upass.length()<8 )
             {
-                if(upass.length()>=8){
-                    stmt.executeUpdate("Insert into user_details(Name,Email,Password) "
-                        + "values('"+uname+"','"+umail+"','"+upass+"')");
-                    response.sendRedirect("index.html");
-                }
-                else{
-                    RequestDispatcher rd = request.getRequestDispatcher("register.html");
-                out.println("<script>alert('Password length must be atleast 8 ');</script>");
+                rd = request.getRequestDispatcher("register.html");
+                out.println("<script>alert('Please input valid Data');</script>");
                 rd.include(request, response);
-                }
+                response.sendRedirect("Register.html");
             }
-            else{
-                    RequestDispatcher rd = request.getRequestDispatcher("register.html");
-                out.println("<script>alert('Password do not match!!');</script>");
+            
+            
+            int err = stmt.executeUpdate("Insert into user_details(Name,Email,Password,Gender,Dob,Mobile,State,City) "
+                        + "values('"+uname+"','"+umail+"','"+upass+"','"+ugender+"','"+udob+"','"+umobile+"','"+ustate+"','"+ucity+"')");
+                    
+            if(err!=0){
+                rd = request.getRequestDispatcher("index.html");
+                out.println("<script>alert('Registered Successfully');</script>");
                 rd.include(request, response);
+                response.sendRedirect("index.html");
+            }else
+            {
+                rd = request.getRequestDispatcher("Register.html");
+                out.println("<script>alert('Some error occured');</script>");
+                rd.include(request, response);
+                response.sendRedirect("Register.html");
+            }
+        }else{
+                    rd = request.getRequestDispatcher("index.html");
+                    out.println("<script>alert('Please Log in First');</script>");
+                    rd.include(request, response);
                 }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterUser.class.getName()).log(Level.SEVERE, null, ex);

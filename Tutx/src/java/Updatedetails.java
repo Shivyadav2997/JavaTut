@@ -41,6 +41,8 @@ public class Updatedetails extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            if(CheckCookie.checkstatus(request, response)==1)
+            {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/usermgnt?user=root");
             stmt = conn.createStatement();
@@ -48,12 +50,18 @@ public class Updatedetails extends HttpServlet {
             int user = Integer.parseInt(request.getParameter("user"));
             int op = Integer.parseInt(request.getParameter("op"));
             int id = Integer.parseInt(request.getParameter("id"));
+            int Aid = Integer.parseInt(request.getParameter("Aid"));
             String origPssd = request.getParameter("opass");
             
             switch(op){
                 case 0: 
                     String name = request.getParameter("uname");
-                    stmt.executeUpdate("Update user_details SET Name='"+name+"' where Id='"+id+"'");
+                    String gender = request.getParameter("gender");
+                    String dob = request.getParameter("dob");
+                    String mobile = request.getParameter("mobile");
+                    String state = request.getParameter("state");
+                    String city = request.getParameter("city");
+                    stmt.executeUpdate("Update user_details SET Name='"+name+"',Gender='"+gender+"',Dob='"+dob+"',Mobile='"+mobile+"',State='"+state+"',City='"+city+"' where Id='"+id+"'");
                     break;
                 case 1: 
                     String opass = request.getParameter("opssd");
@@ -98,11 +106,15 @@ public class Updatedetails extends HttpServlet {
                 //response.sendRedirect("Dashboard");
             }
             else{
-                rd = request.getRequestDispatcher("AdminDashboard?id="+id+"&uid=1");
-                out.println("<script>alert('Updated Successfully!!');</script>");
-                rd.include(request, response);
-                //response.sendRedirect("AdminDashboard?id="+id+"&uid=1");
+                
+                response.sendRedirect("AdminDashboard?id="+Aid+"&uid=1");
+                //out.println("<script>alert('Updated Successfully!!');</script>");
             }
+        }else{
+                   rd = request.getRequestDispatcher("index.html");
+                    out.println("<script>alert('Please Log in First');</script>");
+                    rd.include(request, response);
+                }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Updatedetails.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

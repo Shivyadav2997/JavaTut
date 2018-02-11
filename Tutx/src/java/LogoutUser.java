@@ -32,14 +32,9 @@ public class LogoutUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookie = request.getCookies();
-            for(Cookie c:cookie)
-            {
-                if(c.getName().equals("mail"))
-                {
-                   c.setValue("");
-                }
-            }
+            Cookie ck = new Cookie("mail","");
+            ck.setMaxAge(0);
+            response.addCookie(ck);
             response.sendRedirect("index.html");
         }
     }

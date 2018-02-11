@@ -32,6 +32,10 @@
         <servlet-name>LogoutUser</servlet-name>
         <servlet-class>LogoutUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePsd</servlet-name>
+        <servlet-class>UpdatePsd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ValidateLogin</servlet-name>
         <url-pattern>/ValidateLogin</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>LogoutUser</servlet-name>
         <url-pattern>/LogoutUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePsd</servlet-name>
+        <url-pattern>/UpdatePsd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
