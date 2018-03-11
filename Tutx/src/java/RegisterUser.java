@@ -41,7 +41,7 @@ public class RegisterUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            if(CheckCookie.checkstatus(request, response)==1){
+            
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/usermgnt?user=root");
             stmt = conn.createStatement();
@@ -80,11 +80,7 @@ public class RegisterUser extends HttpServlet {
                 rd.include(request, response);
                 response.sendRedirect("Register.html");
             }
-        }else{
-                    rd = request.getRequestDispatcher("index.html");
-                    out.println("<script>alert('Please Log in First');</script>");
-                    rd.include(request, response);
-                }
+        
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterUser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
